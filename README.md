@@ -201,8 +201,3 @@ python check_data_consistency.py --help
 ## Licence
 
 Ce projet est fourni tel quel sans garantie.
-
-## Auteur
-
-Forvia - DataAnalyse Team
-
