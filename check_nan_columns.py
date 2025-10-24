@@ -55,26 +55,48 @@ def main():
                 # Comptage des NaN par colonne
                 nan_counts = df.isna().sum()[df.isna().sum() > 0].to_dict()
 
-                # Ne garder que si on a trouvé des NaN
+                # Ajouter tous les datasets (avec ou sans NaN)
                 if nan_columns:
                     results.append({
                         "dataset": file_name,
                         "total_row_count": total_rows,
+                        "has_nan": "OUI ❌",
                         "nan_columns": ", ".join(nan_columns),
-                        "nan_counts": nan_counts
+                        "nan_counts": str(nan_counts)
+                    })
+                else:
+                    results.append({
+                        "dataset": file_name,
+                        "total_row_count": total_rows,
+                        "has_nan": "NON ✓",
+                        "nan_columns": "",
+                        "nan_counts": ""
                     })
 
             except Exception as e:
                 print(f"⚠️ Erreur lors de la lecture de {file_name}: {e}")
 
     if not results:
-        print("✅ Aucun fichier avec des NaN détecté ou aucun CSV trouvé.")
+        print("✅ Aucun fichier CSV trouvé.")
         sys.exit(0)
 
     # 📊 Génération du rapport global
     report_df = pd.DataFrame(results)
-    print("\n=== Colonnes contenant au moins un NaN ===")
-    print(report_df)
+    
+    # Statistiques
+    total_files = len(results)
+    files_with_nan = len([r for r in results if r['has_nan'] == "OUI ❌"])
+    files_without_nan = total_files - files_with_nan
+    
+    print(f"\n{'='*60}")
+    print(f"📊 RÉSUMÉ")
+    print(f"{'='*60}")
+    print(f"Fichiers analysés: {total_files}")
+    print(f"Fichiers avec NaN: {files_with_nan}")
+    print(f"Fichiers sans NaN: {files_without_nan}")
+    
+    print("\n=== Rapport complet des datasets ===")
+    print(report_df.to_string(index=False))
 
     # 💾 Export CSV
     report_df.to_csv(output_path, index=False)
