@@ -38,6 +38,9 @@ def main():
                 # Lecture du CSV (auto-détection du séparateur)
                 df = pd.read_csv(file_path, sep=None, engine="python")
 
+                # Nombre total de lignes
+                total_rows = len(df)
+
                 # Colonnes contenant au moins un NaN
                 nan_columns = df.columns[df.isna().any()].tolist()
 
@@ -46,6 +49,7 @@ def main():
 
                 results.append({
                     "dataset": file_name,
+                    "total_row_count": total_rows,
                     "nan_columns": ", ".join(nan_columns),
                     "nan_counts": nan_counts
                 })

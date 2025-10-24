@@ -136,14 +136,15 @@ Colonnes du rapport CSV :
 | Colonne | Description |
 |---------|-------------|
 | `dataset` | Nom du fichier CSV analysé |
+| `total_row_count` | Nombre total de lignes dans le dataset |
 | `nan_columns` | Liste des colonnes contenant des valeurs NaN (séparées par des virgules) |
 | `nan_counts` | Dictionnaire avec le nombre de NaN par colonne |
 
 Exemple :
 ```csv
-dataset,nan_columns,nan_counts
-data1.csv,"age, salary","{'age': 5, 'salary': 3}"
-data2.csv,address,"{'address': 12}"
+dataset,total_row_count,nan_columns,nan_counts
+data1.csv,100,"age, salary","{'age': 5, 'salary': 3}"
+data2.csv,50,address,"{'address': 12}"
 ```
 
 ### Rapport de cohérence (check_data_consistency.py)
