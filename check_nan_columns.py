@@ -60,17 +60,17 @@ def main():
                     results.append({
                         "dataset": file_name,
                         "total_row_count": total_rows,
-                        "has_nan": "OUI ❌",
-                        "nan_columns": ", ".join(nan_columns),
-                        "nan_counts": str(nan_counts)
+                        "has_nan": True,
+                        "nan_columns": nan_columns,
+                        "nan_counts": nan_counts
                     })
                 else:
                     results.append({
                         "dataset": file_name,
                         "total_row_count": total_rows,
-                        "has_nan": "NON ✓",
-                        "nan_columns": "",
-                        "nan_counts": ""
+                        "has_nan": False,
+                        "nan_columns": [],
+                        "nan_counts": 0
                     })
 
             except Exception as e:
@@ -85,7 +85,7 @@ def main():
     
     # Statistiques
     total_files = len(results)
-    files_with_nan = len([r for r in results if r['has_nan'] == "OUI ❌"])
+    files_with_nan = len([r for r in results if r['has_nan'] == True])
     files_without_nan = total_files - files_with_nan
     
     print(f"\n{'='*60}")

@@ -137,18 +137,18 @@ Colonnes du rapport CSV :
 |---------|-------------|
 | `dataset` | Nom du fichier CSV analysé |
 | `total_row_count` | Nombre total de lignes dans le dataset |
-| `has_nan` | OUI ❌ si le dataset contient des NaN, NON ✓ sinon |
-| `nan_columns` | Liste des colonnes contenant des valeurs NaN (vide si aucune) |
-| `nan_counts` | Dictionnaire avec le nombre de NaN par colonne (vide si aucun) |
+| `has_nan` | `True` si le dataset contient des NaN, `False` sinon |
+| `nan_columns` | Tableau JSON des colonnes contenant des valeurs NaN (`[]` si aucune) |
+| `nan_counts` | Dictionnaire JSON avec le nombre de NaN par colonne (`0` si aucun) |
 
 **Note importante** : Le script détecte uniquement les vraies valeurs NaN (nan, NaN, null, N/A, etc.) et **pas les cellules vides**.
 
 Exemple :
 ```csv
 dataset,total_row_count,has_nan,nan_columns,nan_counts
-data1.csv,100,OUI ❌,"age, salary","{'age': 5, 'salary': 3}"
-data2.csv,50,OUI ❌,address,"{'address': 12}"
-data3.csv,200,NON ✓,,
+data1.csv,100,True,"['age', 'salary']","{'age': 5, 'salary': 3}"
+data2.csv,50,True,['address'],"{'address': 12}"
+data3.csv,200,False,[],0
 ```
 
 ### Rapport de cohérence (check_data_consistency.py)
