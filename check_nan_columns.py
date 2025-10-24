@@ -36,23 +36,33 @@ def main():
 
             try:
                 # Lecture du CSV (auto-détection du séparateur)
-                df = pd.read_csv(file_path, sep=None, engine="python")
+                # keep_default_na=False empêche de traiter les cellules vides comme NaN
+                # On spécifie explicitement quelles valeurs sont considérées comme NaN
+                df = pd.read_csv(
+                    file_path, 
+                    sep=None, 
+                    engine="python",
+                    keep_default_na=False,
+                    na_values=['nan', 'NaN', 'NAN', 'null', 'NULL', 'None', 'N/A', 'n/a', '#N/A']
+                )
 
                 # Nombre total de lignes
                 total_rows = len(df)
 
-                # Colonnes contenant au moins un NaN
+                # Colonnes contenant au moins un NaN (valeurs vraiment NaN, pas les chaînes vides)
                 nan_columns = df.columns[df.isna().any()].tolist()
 
                 # Comptage des NaN par colonne
                 nan_counts = df.isna().sum()[df.isna().sum() > 0].to_dict()
 
-                results.append({
-                    "dataset": file_name,
-                    "total_row_count": total_rows,
-                    "nan_columns": ", ".join(nan_columns),
-                    "nan_counts": nan_counts
-                })
+                # Ne garder que si on a trouvé des NaN
+                if nan_columns:
+                    results.append({
+                        "dataset": file_name,
+                        "total_row_count": total_rows,
+                        "nan_columns": ", ".join(nan_columns),
+                        "nan_counts": nan_counts
+                    })
 
             except Exception as e:
                 print(f"⚠️ Erreur lors de la lecture de {file_name}: {e}")
