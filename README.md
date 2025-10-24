@@ -154,6 +154,7 @@ Colonnes du rapport CSV :
 | Colonne | Description |
 |---------|-------------|
 | `fichier` | Nom du fichier CSV analysé |
+| `total_row_count` | Nombre total de lignes dans le dataset |
 | `colonne` | Nom de la colonne analysée |
 | `coherent` | OUI ✓ ou NON ❌ |
 | `types_detectes` | Liste des types trouvés (number, date, string) |
@@ -164,9 +165,9 @@ Colonnes du rapport CSV :
 
 Exemple :
 ```csv
-fichier,colonne,coherent,types_detectes,type_dominant,details,nb_valeurs,nb_nan
-data1.csv,price,NON ❌,"number, string",number,"Mélange de types: number(95), string(5)",100,0
-data1.csv,date,OUI ✓,date,date,Cohérent,100,0
+fichier,total_row_count,colonne,coherent,types_detectes,type_dominant,details,nb_valeurs,nb_nan
+data1.csv,100,price,NON ❌,"number, string",number,"Mélange de types: number(95), string(5)",100,0
+data1.csv,100,date,OUI ✓,date,date,Cohérent,100,0
 ```
 
 ## Structure du projet

@@ -149,6 +149,9 @@ def main():
                 # Lecture du CSV (auto-détection du séparateur)
                 df = pd.read_csv(file_path, sep=None, engine="python")
                 
+                # Nombre total de lignes
+                total_rows = len(df)
+                
                 file_inconsistencies = 0
                 
                 for column in df.columns:
@@ -161,6 +164,7 @@ def main():
                         
                         results.append({
                             "fichier": file_name,
+                            "total_row_count": total_rows,
                             "colonne": column,
                             "coherent": "NON ❌",
                             "types_detectes": ", ".join(analysis['types_found']),
@@ -175,6 +179,7 @@ def main():
                     elif verbose:
                         results.append({
                             "fichier": file_name,
+                            "total_row_count": total_rows,
                             "colonne": column,
                             "coherent": "OUI ✓",
                             "types_detectes": ", ".join(analysis['types_found']) if analysis['types_found'] else "vide",
